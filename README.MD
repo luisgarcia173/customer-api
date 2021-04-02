@@ -1,5 +1,5 @@
 # Customer API
-![project version](https://img.shields.io/badge/version-0.0.1-blue.svg)
+![project version](https://img.shields.io/badge/version-1.0.0-blue.svg)
 - **Time:** Luis Garcia
 - **Desde:** 02/04/2021
 
@@ -24,9 +24,40 @@ Critérios utilizados para esteira de **DevOps**:
 # Fases do Projeto / Roadmap
 Data|Fase|Descrição
 ---|---|---
-02/04/2021|Configuração|Criação do esqueleto do projeto utilizando SpringBoot02/04/2021|Configuração|Criação do esqueleto do projeto utilizando SpringBoot
+02/04/2021|Configuração|Criação do esqueleto do projeto utilizando SpringBoot
 02/04/2021|Documentação|Criação do arquivo README
 02/04/2021|Configuração|Criação do repositório no Github
+02/04/2021|Configuração|Adição da Lib do Actuator (Health Check)
+02/04/2021|Configuração|Configuração do SpringDocs para gerar swagger das APIs
+02/04/2021|Configuração|Adição e configuração da Lib Jacoco (Cobertura de Testes)
+02/04/2021|Configuração|Criação das classes e métodos de teste (TDD) baseado na especificação da API
+02/04/2021|Desenvolvimento|Criação das Entidades e Enums conforme necessidade dos testes unitários
+Pendente|Desenvolvimento|Criação dos DTOs para blindar o modelo do banco de dados 
+Pendente|Desenvolvimento|Criação das Rotas e Endpoints para validar das chamadas e HTTPCodes 
+Pendente|Desenvolvimento|Escrever documentação swagger para as rotas
+Pendente|Desenvolvimento|Criação da Camada de Negócio testar validações
+Pendente|Desenvolvimento|Criação das Exceções customizadas
+Pendente|Configuração|Configuração do SpringDataJpa para mapear as entidades banco e validar persistência
+Pendente|Teste Integração|Criação dos payloads no postman para teste de integração
+Pendente|Configuração|Validação do Jacoco com as métricas de qualidade
+
+# Fora Escopo (Melhoria)
+Data|Fase|Descrição
+---|---|---
+Pendente|Melhoria|Empacotamento aplicação utilizando Docker
+Pendente|Melhoria|Banco de dados e demais itens de infra tbm containerizados
+Pendente|Melhoria|Utilizar orquetrador Docker Compose
+Pendente|Melhoria|Subir ambiente funcional em Cloud (gratuíta)
+Pendente|Melhoria|Criação camada de log transacional (auditoria)
+Pendente|Melhoria|Criação camada de log sistema (erros)
+Pendente|Melhoria|Configurar monitoria aplicação utilizando Elastic Stack
+Pendente|Melhoria|Criação camada de cache para consultas menos sensíveis (Redis)
+Pendente|Melhoria|Viabilizar camada REST usando WebRedux (chamadas assíncronas)
+Pendente|Melhoria|Alterar modelo do bando de dados para NoSQL (MongoDB)
+Pendente|Melhoria|Aumentar a granularidade das consultas mudando o modelo de REST para GraphQL
+Pendente|Melhoria|Criar camada de mensageria para processar requisições mais pesadas (Kafka)
+Pendente|Melhoria|Criação camada de segurança implementando Basic, JWT e oAuth
+Pendente|Melhoria|Expor credenciais aplicação servidor de Vault
 
 # Detalhamento Técnico
 
@@ -40,12 +71,13 @@ Data|Fase|Descrição
 1. [Custom Exceptions](#custom-exceptions)
 1. [Unit Tests](#unit-tests)
 1. [Code Coverage](#code-coverage)
-1. [Authentication](#authentication)
 1. [API Health Check](#api-health-check)
+1. [Authentication](#authentication)
 1. [Logs e Monitoramento](#logs-e-monitoramento)
 
 ## Estrutura do Projeto
-To-do
+To-do descritivo
+To-do desenho arquitetural
 
 ## Divisão dos Pacotes
 To-do
