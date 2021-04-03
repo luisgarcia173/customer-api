@@ -11,6 +11,9 @@ management:
 ### SpringDocs & Swagger ###
 springdoc:
   show-actuator: true
+  api-docs:
+    groups:
+      enabled: true
 #  api-docs:
 #    path: "/openapi"
 #    enabled: false

@@ -1,14 +1,13 @@
-package com.builders.customer.repositories.entities;
+package com.builders.customer.resources.dtos;
 
 import com.builders.customer.repositories.enums.AddressTypeEnum;
 import lombok.Data;
 
 import java.io.Serializable;
 
-public @Data class Address implements Serializable {
+public @Data class AddressDto implements Serializable {
 
   private Long id;
-
   private String streetName;
   private String zipcode;
   private String number;

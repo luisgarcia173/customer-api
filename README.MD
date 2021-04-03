@@ -28,13 +28,15 @@ Data|Fase|Descrição
 02/04/2021|Documentação|Criação do arquivo README
 02/04/2021|Configuração|Criação do repositório no Github
 02/04/2021|Configuração|Adição da Lib do Actuator (Health Check)
-02/04/2021|Configuração|Configuração do SpringDocs para gerar swagger das APIs
+02/04/2021|Configuração|Configuração do OpenApi para gerar swagger das APIs
 02/04/2021|Configuração|Adição e configuração da Lib Jacoco (Cobertura de Testes)
 02/04/2021|Configuração|Criação das classes e métodos de teste (TDD) baseado na especificação da API
 02/04/2021|Desenvolvimento|Criação das Entidades e Enums conforme necessidade dos testes unitários
-Pendente|Desenvolvimento|Criação dos DTOs para blindar o modelo do banco de dados 
-Pendente|Desenvolvimento|Criação das Rotas e Endpoints para validar das chamadas e HTTPCodes 
-Pendente|Desenvolvimento|Escrever documentação swagger para as rotas
+03/04/2021|Desenvolvimento|Criação dos DTOs para blindar o modelo do banco de dados 
+03/04/2021|Desenvolvimento|Criação das Rotas e Endpoints para validar das chamadas e HTTPCodes 
+03/04/2021|Desenvolvimento|Escrever documentação swagger para as rotas
+03/04/2021|Configuração|Abstração de versionamento de APIs
+Pendente|Configuração|Configurar OpenAPI para exibir a API versionada
 Pendente|Desenvolvimento|Criação da Camada de Negócio testar validações
 Pendente|Desenvolvimento|Criação das Exceções customizadas
 Pendente|Configuração|Configuração do SpringDataJpa para mapear as entidades banco e validar persistência
@@ -53,7 +55,7 @@ Pendente|Melhoria|Criação camada de log sistema (erros)
 Pendente|Melhoria|Configurar monitoria aplicação utilizando Elastic Stack
 Pendente|Melhoria|Criação camada de cache para consultas menos sensíveis (Redis)
 Pendente|Melhoria|Viabilizar camada REST usando WebRedux (chamadas assíncronas)
-Pendente|Melhoria|Alterar modelo do bando de dados para NoSQL (MongoDB)
+Pendente|Melhoria|Alterar modelo do bando de dados para NoSQL e diminuir a dependência com Entidas aninhadas (MongoDB)
 Pendente|Melhoria|Aumentar a granularidade das consultas mudando o modelo de REST para GraphQL
 Pendente|Melhoria|Criar camada de mensageria para processar requisições mais pesadas (Kafka)
 Pendente|Melhoria|Criação camada de segurança implementando Basic, JWT e oAuth
