@@ -5,6 +5,7 @@ import com.builders.customer.resources.dtos.AddressDto;
 import com.builders.customer.resources.dtos.CustomerDto;
 import com.builders.customer.resources.dtos.DocumentDto;
 import com.builders.customer.resources.dtos.PhoneDto;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -22,5 +23,5 @@ public interface CustomerBusiness {
   void updateAddress(Long id, AddressDto address);
   void updatePhone(Long id, PhoneDto phone);
   void updateDocument(Long id, DocumentDto document);
-  List<CustomerDto> findAllPaged();
+  List<CustomerDto> findAllPaged(Pageable pageable);
 }

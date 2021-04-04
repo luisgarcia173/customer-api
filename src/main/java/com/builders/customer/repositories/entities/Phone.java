@@ -3,10 +3,14 @@ package com.builders.customer.repositories.entities;
 import com.builders.customer.repositories.enums.PhoneTypeEnum;
 import lombok.Data;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.io.Serializable;
 
+@Entity
 public @Data class Phone implements Serializable {
 
+  @Id
   private Long id;
 
   private int countryCode;

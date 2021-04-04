@@ -13,6 +13,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -47,8 +48,8 @@ public class CustomerResources {
       "application/vnd.customer.app-v1.1+json",
       "application/vnd.customer.app-v1.2+json"
   })
-  public List<CustomerDto> findAllPaged() {
-    return this.customerBusiness.findAllPaged();
+  public List<CustomerDto> findAllPaged(Pageable pageable) {
+    return this.customerBusiness.findAllPaged(pageable);
   }
 
   @Operation(summary = "Buscar cliente pelo Id")

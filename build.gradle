@@ -25,6 +25,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
@@ -38,6 +39,9 @@ dependencies {
 
 	// DTO Mapper
 	compile 'org.modelmapper:modelmapper:2.4.0'
+
+	// H2 Driver
+	compile 'com.h2database:h2:1.4.200'
 }
 
 jacoco {

@@ -10,6 +10,17 @@ spring:
       password: "admin"
       roles:
         - ENDPOINT_ADMIN
+  h2:
+    console:
+      enabled: true
+  datasource:
+    url: jdbc:h2:mem:simpledb
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
 
 ### Actuator ###
 management:

@@ -41,8 +41,11 @@ Data|Fase|Descrição
 04/04/2021|Configuração|Configurar Actuator para responder porta 8080 por não conseguir direcionar swagger para outra porta
 04/04/2021|Configuração|Alterada configuração Actuator para Config própria
 04/04/2021|Configuração|Criada camada de segurança para proteger rotas do Actuator usando SpringSecurity
-Pendente|Desenvolvimento|Criação da Camada de Negócio testar validações
-Pendente|Desenvolvimento|Criação das Exceções customizadas
+04/04/2021|Configuração|Adicionar banco H2 (inMemory) para validação da POC
+04/04/2021|Configuração|Configurar camada persistência JPA
+04/04/2021|Configuração|Inclusão de consulta paginada usando Pageable
+04/04/2021|Desenvolvimento|Criação da Camada de Negócio chamadas aos métodos JPA
+04/04/2021|Desenvolvimento|Criação das Exceções customizadas
 Pendente|Configuração|Configuração do SpringDataJpa para mapear as entidades banco e validar persistência
 Pendente|Teste Integração|Criação dos payloads no postman para teste de integração
 Pendente|Configuração|Validação do Jacoco com as métricas de qualidade
