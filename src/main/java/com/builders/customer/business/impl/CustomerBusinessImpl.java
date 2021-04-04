@@ -72,4 +72,9 @@ public class CustomerBusinessImpl implements CustomerBusiness {
   public void updateDocument(Long id, DocumentDto document) {
 
   }
+
+  @Override
+  public List<CustomerDto> findAllPaged() {
+    return null;
+  }
 }

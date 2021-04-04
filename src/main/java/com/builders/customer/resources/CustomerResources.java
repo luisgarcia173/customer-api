@@ -13,10 +13,8 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -26,31 +24,34 @@ public class CustomerResources {
   @Autowired
   private CustomerBusiness customerBusiness;
 
-  @Operation(summary = "Listar todos os clientes ativos", tags = { "cliente" })
+  @Operation(summary = "Listar todos os clientes ativos")
   @ApiResponses(value = {
       @ApiResponse(
           responseCode = "200",
           description = "Clientes encontrados",
           content = { @Content(mediaType = "application/json", schema = @Schema(implementation = CustomerDto.class)) }),
       @ApiResponse(responseCode = "404", description = "Nenhum cliente encontrado", content = @Content) })
-  @GetMapping("/v1.0/")
+  @GetMapping(produces = "application/vnd.customer.app-v1.0+json")
   public List<CustomerDto> findAll() {
     return this.customerBusiness.findAll();
   }
 
-//  @Operation(summary = "Listar todos os clientes", tags = { "cliente" })
-//  @ApiResponses(value = {
-//      @ApiResponse(
-//          responseCode = "200",
-//          description = "Clientes encontrados",
-//          content = { @Content(mediaType = "application/json", schema = @Schema(implementation = CustomerDto.class)) }),
-//      @ApiResponse(responseCode = "404", description = "Nenhum cliente encontrado", content = @Content) })
-//  @GetMapping("/")
-//  public List<CustomerDto> findAllPaged() {
-//    return this.customerBusiness.findAll();
-//  }
+  @Operation(summary = "Listar todos os clientes ativos de forma paginada")
+  @ApiResponses(value = {
+      @ApiResponse(
+          responseCode = "200",
+          description = "Clientes encontrados",
+          content = { @Content(mediaType = "application/json", schema = @Schema(implementation = CustomerDto.class)) }),
+      @ApiResponse(responseCode = "404", description = "Nenhum cliente encontrado", content = @Content) })
+  @GetMapping(produces = {
+      "application/vnd.customer.app-v1.1+json",
+      "application/vnd.customer.app-v1.2+json"
+  })
+  public List<CustomerDto> findAllPaged() {
+    return this.customerBusiness.findAllPaged();
+  }
 
-  @Operation(summary = "Buscar cliente pelo Id", tags = { "cliente" })
+  @Operation(summary = "Buscar cliente pelo Id")
   @ApiResponses(value = {
       @ApiResponse(
           responseCode = "200",
@@ -58,12 +59,16 @@ public class CustomerResources {
           content = { @Content(mediaType = "application/json", schema = @Schema(implementation = CustomerDto.class)) }),
       @ApiResponse(responseCode = "400", description = "Id fornecido é inválido", content = @Content),
       @ApiResponse(responseCode = "404", description = "Nenhum cliente encontrado", content = @Content) })
-  @GetMapping("/v1.0/{id}")
+  @GetMapping(value = "/{id}", produces = {
+      "application/vnd.customer.app-v1.0+json",
+      "application/vnd.customer.app-v1.1+json",
+      "application/vnd.customer.app-v1.2+json"
+  })
   public CustomerDto findById(@Parameter(description = "Id do cliente", required = true) @PathVariable long id) {
     return this.customerBusiness.findById(id);
   }
 
-  @Operation(summary = "Buscar clientes pelo nome", tags = { "cliente" })
+  @Operation(summary = "Buscar clientes pelo nome")
   @ApiResponses(value = {
       @ApiResponse(
           responseCode = "200",
@@ -71,12 +76,15 @@ public class CustomerResources {
           content = { @Content(mediaType = "application/json", schema = @Schema(implementation = CustomerDto.class)) }),
       @ApiResponse(responseCode = "400", description = "Nome fornecido é inválido", content = @Content),
       @ApiResponse(responseCode = "404", description = "Nenhum cliente encontrado", content = @Content) })
-  @GetMapping("/v1.0/name/{name}")
+  @GetMapping(value = "/name/{name}", produces = {
+      "application/vnd.customer.app-v1.1+json",
+      "application/vnd.customer.app-v1.2+json"
+  })
   public List<CustomerDto> findByName(@Parameter(description = "Nome do cliente", required = true) @PathVariable String name) {
     return this.customerBusiness.findByName(name);
   }
 
-  @Operation(summary = "Buscar clientes pelo CEP", tags = { "cliente" })
+  @Operation(summary = "Buscar clientes pelo CEP")
   @ApiResponses(value = {
       @ApiResponse(
           responseCode = "200",
@@ -84,12 +92,12 @@ public class CustomerResources {
           content = { @Content(mediaType = "application/json", schema = @Schema(implementation = CustomerDto.class)) }),
       @ApiResponse(responseCode = "400", description = "CEP fornecido é inválido", content = @Content),
       @ApiResponse(responseCode = "404", description = "Nenhum cliente encontrado", content = @Content) })
-  @GetMapping("/v1.0/address/zipcode/{zipcode}")
+  @GetMapping(value = "/address/zipcode/{zipcode}", produces = "application/vnd.customer.app-v1.2+json")
   public List<CustomerDto> findByZipcode(@Parameter(description = "CEP do cliente", required = true) @PathVariable String zipcode) {
     return this.customerBusiness.findByZipcode(zipcode);
   }
 
-  @Operation(summary = "Buscar clientes pelo telefone", tags = { "cliente" })
+  @Operation(summary = "Buscar clientes pelo telefone")
   @ApiResponses(value = {
       @ApiResponse(
           responseCode = "200",
@@ -97,7 +105,7 @@ public class CustomerResources {
           content = { @Content(mediaType = "application/json", schema = @Schema(implementation = CustomerDto.class)) }),
       @ApiResponse(responseCode = "400", description = "Telefone fornecido é inválido", content = @Content),
       @ApiResponse(responseCode = "404", description = "Nenhum cliente encontrado", content = @Content) })
-  @GetMapping("/v1.0/phone/{number}")
+  @GetMapping(value = "/phone/{number}", produces = "application/vnd.customer.app-v1.2+json")
   public List<CustomerDto> findByPhone(
       @Parameter(description = "Número do telefone", required = true) @PathVariable String number,
       @Parameter(description = "DDI", required = false) @RequestParam String countryCode,
@@ -105,7 +113,7 @@ public class CustomerResources {
     return this.customerBusiness.findByPhone(number, countryCode, areaCode);
   }
 
-  @Operation(summary = "Buscar clientes pelo número do documento", tags = { "cliente" })
+  @Operation(summary = "Buscar clientes pelo número do documento")
   @ApiResponses(value = {
       @ApiResponse(
           responseCode = "200",
@@ -113,14 +121,17 @@ public class CustomerResources {
           content = { @Content(mediaType = "application/json", schema = @Schema(implementation = CustomerDto.class)) }),
       @ApiResponse(responseCode = "400", description = "Documento fornecido é inválido", content = @Content),
       @ApiResponse(responseCode = "404", description = "Nenhum cliente encontrado", content = @Content) })
-  @GetMapping("/v1.0/document/{number}")
+  @GetMapping(value = "/document/{number}", produces = {
+      "application/vnd.customer.app-v1.1+json",
+      "application/vnd.customer.app-v1.2+json"
+  })
   public List<CustomerDto> findByDocument(
       @Parameter(description = "Número do documento", required = true) @PathVariable String number,
       @Parameter(description = "Tipo", required = false) @RequestParam DocumentTypeEnum type) {
     return this.customerBusiness.findByDocument(number, type);
   }
 
-  @Operation(summary = "Remover cliente", tags = { "cliente" })
+  @Operation(summary = "Remover cliente")
   @ApiResponses(value = {
       @ApiResponse(
           responseCode = "200",
@@ -128,24 +139,32 @@ public class CustomerResources {
           content = { @Content(mediaType = "application/json") }),
       @ApiResponse(responseCode = "400", description = "Id fornecido é inválido", content = @Content),
       @ApiResponse(responseCode = "404", description = "Nenhum cliente encontrado", content = @Content) })
-  @DeleteMapping("/v1.0/{id}")
+  @DeleteMapping(value = "/{id}", produces = {
+      "application/vnd.customer.app-v1.0+json",
+      "application/vnd.customer.app-v1.1+json",
+      "application/vnd.customer.app-v1.2+json"
+  })
   public void delete(@Parameter(description = "Id do cliente", required = true) @PathVariable Long id) {
     this.customerBusiness.delete(id);
   }
 
-  @Operation(summary = "Criar novo cliente", tags = { "cliente" })
+  @Operation(summary = "Criar novo cliente")
   @ApiResponses(value = {
       @ApiResponse(
           responseCode = "200",
           description = "Cliente criado com sucesso",
           content = { @Content(mediaType = "application/json", schema = @Schema(implementation = CustomerDto.class)) })})
-  @PostMapping("/v1.0/")
+  @PostMapping(produces = {
+      "application/vnd.customer.app-v1.0+json",
+      "application/vnd.customer.app-v1.1+json",
+      "application/vnd.customer.app-v1.2+json"
+  })
   //@ResponseStatus(HttpStatus.OK)
-  public CustomerDto create(@Parameter(description = "Dados do cliente") @Valid @RequestBody final CustomerDto customer) {
+  public CustomerDto create(@Parameter(description = "Dados do cliente") @RequestBody final CustomerDto customer) {
     return this.customerBusiness.create(customer);
   }
 
-  @Operation(summary = "Atualizar cliente", tags = { "cliente" })
+  @Operation(summary = "Atualizar cliente")
   @ApiResponses(value = {
       @ApiResponse(
           responseCode = "200",
@@ -153,13 +172,17 @@ public class CustomerResources {
           content = { @Content(mediaType = "application/json", schema = @Schema(implementation = CustomerDto.class)) }),
       @ApiResponse(responseCode = "400", description = "Id fornecido é inválido", content = @Content),
       @ApiResponse(responseCode = "404", description = "Nenhum cliente encontrado", content = @Content) })
-  @PutMapping("/v1.0/{id}")
+  @PutMapping(value = "/{id}", produces = {
+      "application/vnd.customer.app-v1.0+json",
+      "application/vnd.customer.app-v1.1+json",
+      "application/vnd.customer.app-v1.2+json"
+  })
   public CustomerDto update(@Parameter(description = "Id do cliente", required = true) @PathVariable("id") final Long id,
-                            @Parameter(description = "Novos atributos do cliente") @Valid @RequestBody final CustomerDto customer) {
+                            @Parameter(description = "Novos atributos do cliente") @RequestBody final CustomerDto customer) {
     return this.customerBusiness.update(id, customer);
   }
 
-  @Operation(summary = "Atualizar endereço do cliente", tags = { "cliente" })
+  @Operation(summary = "Atualizar endereço do cliente")
   @ApiResponses(value = {
       @ApiResponse(
           responseCode = "200",
@@ -167,13 +190,16 @@ public class CustomerResources {
           content = { @Content(mediaType = "application/json", schema = @Schema(implementation = AddressDto.class)) }),
       @ApiResponse(responseCode = "400", description = "Id fornecido é inválido", content = @Content),
       @ApiResponse(responseCode = "404", description = "Nenhum cliente encontrado", content = @Content) })
-  @PatchMapping("/v1.0/{id}/address")
+  @PatchMapping(value = "/{id}/address", produces = {
+      "application/vnd.customer.app-v1.1+json",
+      "application/vnd.customer.app-v1.2+json"
+  })
   public void updateAddress(@Parameter(description = "Id do cliente", required = true) @PathVariable("id") final Long id,
-                            @Parameter(description = "Novo endereço") @Valid @RequestBody final AddressDto address) {
+                            @Parameter(description = "Novo endereço") @RequestBody final AddressDto address) {
     this.customerBusiness.updateAddress(id, address);
   }
 
-  @Operation(summary = "Atualizar telefone do cliente", tags = { "cliente" })
+  @Operation(summary = "Atualizar telefone do cliente")
   @ApiResponses(value = {
       @ApiResponse(
           responseCode = "200",
@@ -181,13 +207,16 @@ public class CustomerResources {
           content = { @Content(mediaType = "application/json", schema = @Schema(implementation = PhoneDto.class)) }),
       @ApiResponse(responseCode = "400", description = "Id fornecido é inválido", content = @Content),
       @ApiResponse(responseCode = "404", description = "Nenhum cliente encontrado", content = @Content) })
-  @PatchMapping("/v1.0/{id}/phone")
+  @PatchMapping(value = "/{id}/phone", produces = {
+      "application/vnd.customer.app-v1.1+json",
+      "application/vnd.customer.app-v1.2+json"
+  })
   public void updatePhone(@Parameter(description = "Id do cliente", required = true) @PathVariable("id") final Long id,
-                          @Parameter(description = "Novo telefone") @Valid @RequestBody final PhoneDto phone) {
+                          @Parameter(description = "Novo telefone") @RequestBody final PhoneDto phone) {
     this.customerBusiness.updatePhone(id, phone);
   }
 
-  @Operation(summary = "Atualizar documento do cliente", tags = { "cliente" })
+  @Operation(summary = "Atualizar documento do cliente")
   @ApiResponses(value = {
       @ApiResponse(
           responseCode = "200",
@@ -195,9 +224,12 @@ public class CustomerResources {
           content = { @Content(mediaType = "application/json", schema = @Schema(implementation = DocumentDto.class)) }),
       @ApiResponse(responseCode = "400", description = "Id fornecido é inválido", content = @Content),
       @ApiResponse(responseCode = "404", description = "Nenhum cliente encontrado", content = @Content) })
-  @PatchMapping("/v1.0/{id}/document")
+  @PatchMapping(value = "/{id}/document", produces = {
+      "application/vnd.customer.app-v1.1+json",
+      "application/vnd.customer.app-v1.2+json"
+  })
   public void updateDocument(@Parameter(description = "Id do cliente", required = true) @PathVariable("id") final Long id,
-                             @Parameter(description = "Novos documento") @Valid @RequestBody final DocumentDto document) {
+                             @Parameter(description = "Novos documento") @RequestBody final DocumentDto document) {
     this.customerBusiness.updateDocument(id, document);
   }
 

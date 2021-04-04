@@ -36,7 +36,11 @@ Data|Fase|Descrição
 03/04/2021|Desenvolvimento|Criação das Rotas e Endpoints para validar das chamadas e HTTPCodes 
 03/04/2021|Desenvolvimento|Escrever documentação swagger para as rotas
 03/04/2021|Configuração|Abstração de versionamento de APIs
-Pendente|Configuração|Configurar OpenAPI para exibir a API versionada
+04/04/2021|Configuração|Alteração na biblioteca de Documentação Api de OpenApi para Swagger3 devido a limitação no versionamento
+04/04/2021|Configuração|Configurar Swagger para versionar as Endpoints
+04/04/2021|Configuração|Configurar Actuator para responder porta 8080 por não conseguir direcionar swagger para outra porta
+04/04/2021|Configuração|Alterada configuração Actuator para Config própria
+04/04/2021|Configuração|Criada camada de segurança para proteger rotas do Actuator usando SpringSecurity
 Pendente|Desenvolvimento|Criação da Camada de Negócio testar validações
 Pendente|Desenvolvimento|Criação das Exceções customizadas
 Pendente|Configuração|Configuração do SpringDataJpa para mapear as entidades banco e validar persistência

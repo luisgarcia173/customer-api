@@ -1,22 +1,21 @@
+### Application ###
+spring:
+  application:
+    name: customer-api
+  profiles:
+    active: dev
+  security:
+    user:
+      name: "admin"
+      password: "admin"
+      roles:
+        - ENDPOINT_ADMIN
 
 ### Actuator ###
 management:
-  server:
-    port: 9090
+  security:
+    enabled: true
   endpoints:
     web:
       exposure:
         include: "*"
-
-### SpringDocs & Swagger ###
-springdoc:
-  show-actuator: true
-  api-docs:
-    groups:
-      enabled: true
-#  api-docs:
-#    path: "/openapi"
-#    enabled: false
-#  swagger-ui:
-#    path: "/swaggerui"
-#    enabled: false

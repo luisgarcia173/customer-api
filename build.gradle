@@ -24,6 +24,7 @@ dependencies {
 	// SpringBoot Starter
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
@@ -31,11 +32,9 @@ dependencies {
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
 
-	// Open API 3.0
-	compile 'org.springdoc:springdoc-openapi-ui:1.5.6'
-	//compile 'org.springdoc:springdoc-openapi-security:1.5.6'
-	compile 'org.springdoc:springdoc-openapi-webmvc-core:1.5.6'
-	//compile 'org.springdoc:springdoc-openapi-data-rest:1.5.6'
+	// Swagger
+	implementation "io.springfox:springfox-boot-starter:3.0.0"
+	compile "io.springfox:springfox-swagger-ui:3.0.0"
 
 	// DTO Mapper
 	compile 'org.modelmapper:modelmapper:2.4.0'

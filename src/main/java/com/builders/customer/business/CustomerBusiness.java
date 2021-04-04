@@ -22,5 +22,5 @@ public interface CustomerBusiness {
   void updateAddress(Long id, AddressDto address);
   void updatePhone(Long id, PhoneDto phone);
   void updateDocument(Long id, DocumentDto document);
-
+  List<CustomerDto> findAllPaged();
 }
