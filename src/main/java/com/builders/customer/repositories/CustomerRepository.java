@@ -5,24 +5,25 @@ import com.builders.customer.repositories.enums.DocumentTypeEnum;
 import com.builders.customer.repositories.enums.StatusEnum;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
-public interface CustomerRepository extends JpaRepository<Customer, Long> {
+public interface CustomerRepository extends PagingAndSortingRepository<Customer, Long> {
 
   List<Customer> findAllByStatus(StatusEnum status);
 
-  Page<Customer> findAll(Pageable pageable);
+  List<Customer> findAllByStatus(StatusEnum status, Pageable pageable);
 
   List<Customer> findByNameStartsWith(String name);
 
-  List<Customer> findAllByAddressZipcodeIn(String zipcode);
+  List<Customer> findAllByAddressZipcode(String zipcode);
 
-  List<Customer> findAllByPhoneCountryCodeAndPhoneAreaCodeAndPhoneNumber(String countryCode, String areaCode, String number);
+  List<Customer> findAllByPhonesCountryCodeAndPhonesAreaCodeAndPhonesNumber(String countryCode, String areaCode, String number);
 
-  List<Customer> findAllByDocumentNumberAndDocumentType(String number, DocumentTypeEnum type);
+  List<Customer> findAllByDocumentsNumberAndDocumentsType(String number, DocumentTypeEnum type);
 
 }

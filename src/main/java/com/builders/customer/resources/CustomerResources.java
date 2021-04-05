@@ -33,6 +33,7 @@ public class CustomerResources {
           content = { @Content(mediaType = "application/json", schema = @Schema(implementation = CustomerDto.class)) }),
       @ApiResponse(responseCode = "404", description = "Nenhum cliente encontrado", content = @Content) })
   @GetMapping(produces = "application/vnd.customer.app-v1.0+json")
+  @Deprecated
   public List<CustomerDto> findAll() {
     return this.customerBusiness.findAll();
   }

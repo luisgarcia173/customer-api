@@ -67,42 +67,6 @@ public class CustomerResourcesTest {
   }
 
   @Test
-  public void testCreate() throws Exception {
-    CustomerDto customer = new CustomerDto();
-    customer.setName("Luis Garcia");
-    String payload = this.getCustomerDtoAsJson(customer);
-
-    mockMvc.perform(
-      post("/api/customers/")
-          .contentType(MediaType.APPLICATION_JSON)
-          .characterEncoding("UTF-8")
-          .content(payload))
-      .andExpect(status().isOk())
-      .andExpect(jsonPath("$.id", is("10101")))
-      .andExpect(jsonPath("$.status", is(StatusEnum.ATIVO.toString())));
-  }
-
-  @Test
-  public void testUpdate() throws Exception {
-    //todo
-  }
-
-  @Test
-  public void testUpdateAddress() throws Exception {
-    //todo
-  }
-
-  @Test
-  public void testUpdatePhone() throws Exception {
-    //todo
-  }
-
-  @Test
-  public void testUpdateDocument() throws Exception {
-    //todo
-  }
-
-  @Test
   public void testFindAll() throws Exception {
     //todo
   }
@@ -139,6 +103,42 @@ public class CustomerResourcesTest {
 
   @Test
   public void testDelete() throws Exception {
+    //todo
+  }
+
+  @Test
+  public void testCreate() throws Exception {
+    CustomerDto customer = new CustomerDto();
+    customer.setName("Luis Garcia");
+    String payload = this.getCustomerDtoAsJson(customer);
+
+    mockMvc.perform(
+        post("/api/customers/")
+            .contentType(MediaType.APPLICATION_JSON)
+            .characterEncoding("UTF-8")
+            .content(payload))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$.id", is("10101")))
+        .andExpect(jsonPath("$.status", is(StatusEnum.ATIVO.toString())));
+  }
+
+  @Test
+  public void testUpdate() throws Exception {
+    //todo
+  }
+
+  @Test
+  public void testUpdateAddress() throws Exception {
+    //todo
+  }
+
+  @Test
+  public void testUpdatePhone() throws Exception {
+    //todo
+  }
+
+  @Test
+  public void testUpdateDocument() throws Exception {
     //todo
   }
 

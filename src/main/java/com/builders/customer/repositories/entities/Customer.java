@@ -4,10 +4,7 @@ import com.builders.customer.repositories.enums.StatusEnum;
 import com.builders.customer.resources.dtos.CustomerDto;
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
@@ -15,6 +12,7 @@ import java.util.List;
 public @Data class Customer implements Serializable {
 
   @Id
+  @GeneratedValue
   private Long id;
 
   private String name;

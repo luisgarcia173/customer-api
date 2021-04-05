@@ -4,6 +4,7 @@ import com.builders.customer.repositories.enums.PhoneTypeEnum;
 import lombok.Data;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.io.Serializable;
 
@@ -11,6 +12,7 @@ import java.io.Serializable;
 public @Data class Phone implements Serializable {
 
   @Id
+  @GeneratedValue
   private Long id;
 
   private int countryCode;

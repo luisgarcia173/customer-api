@@ -46,7 +46,9 @@ Data|Fase|Descrição
 04/04/2021|Configuração|Inclusão de consulta paginada usando Pageable
 04/04/2021|Desenvolvimento|Criação da Camada de Negócio chamadas aos métodos JPA
 04/04/2021|Desenvolvimento|Criação das Exceções customizadas
-Pendente|Configuração|Configuração do SpringDataJpa para mapear as entidades banco e validar persistência
+05/04/2021|Configuração|Configuração do SpringDataJpa para mapear as entidades banco e validar persistência
+05/04/2021|Desenvolvimento|Configuração do Handler de erros
+05/04/2021|Desenvolvimento|Retomando os testes unitários por camadas (Resource/Business/Repository)
 Pendente|Teste Integração|Criação dos payloads no postman para teste de integração
 Pendente|Configuração|Validação do Jacoco com as métricas de qualidade
 
