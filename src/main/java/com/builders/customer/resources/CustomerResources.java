@@ -49,8 +49,10 @@ public class CustomerResources {
       "application/vnd.customer.app-v1.1+json",
       "application/vnd.customer.app-v1.2+json"
   })
-  public List<CustomerDto> findAllPaged(Pageable pageable) {
-    return this.customerBusiness.findAllPaged(pageable);
+  public List<CustomerDto> findAllPaged(
+      @Parameter(description = "pageSize", required = true) @RequestParam int pageSize,
+      @Parameter(description = "pageNumber", required = true) @RequestParam int pageNumber) {
+    return this.customerBusiness.findAllPaged(pageSize, pageNumber);
   }
 
   @Operation(summary = "Buscar cliente pelo Id")
@@ -110,8 +112,8 @@ public class CustomerResources {
   @GetMapping(value = "/phone/{number}", produces = "application/vnd.customer.app-v1.2+json")
   public List<CustomerDto> findByPhone(
       @Parameter(description = "Número do telefone", required = true) @PathVariable long number,
-      @Parameter(description = "DDI", required = false) @RequestParam int countryCode,
-      @Parameter(description = "DDD", required = false) @RequestParam int areaCode) {
+      @Parameter(description = "DDI", required = true) @RequestParam int countryCode,
+      @Parameter(description = "DDD", required = true) @RequestParam int areaCode) {
     return this.customerBusiness.findByPhone(number, countryCode, areaCode);
   }
 
@@ -129,7 +131,7 @@ public class CustomerResources {
   })
   public List<CustomerDto> findByDocument(
       @Parameter(description = "Número do documento", required = true) @PathVariable String number,
-      @Parameter(description = "Tipo", required = false) @RequestParam DocumentTypeEnum type) {
+      @Parameter(description = "Tipo", required = true) @RequestParam DocumentTypeEnum type) {
     return this.customerBusiness.findByDocument(number, type);
   }
 

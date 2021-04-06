@@ -1,6 +1,7 @@
 package com.builders.customer.resources;
 
 import com.builders.customer.business.CustomerBusiness;
+import com.builders.customer.repositories.entities.Address;
 import com.builders.customer.repositories.enums.AddressTypeEnum;
 import com.builders.customer.repositories.enums.DocumentTypeEnum;
 import com.builders.customer.repositories.enums.PhoneTypeEnum;
@@ -26,9 +27,10 @@ import java.util.List;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
-import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.BDDMockito.given;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.mockito.Mockito.doNothing;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -61,14 +63,53 @@ public class CustomerResourcesTest {
 //    // List
 //    given(vehicleBusiness.listAll()).willReturn(List.of(new VehicleDto(), new VehicleDto()));
 
-    CustomerDto customer = new CustomerDto();
-    customer.setName("Luis Garcia");
+    AddressDto address = new AddressDto();
+    address.setState("SP");
+
+    PhoneDto phone = new PhoneDto();
+    phone.setType(PhoneTypeEnum.CELLPHONE);
+
+    DocumentDto document = new DocumentDto();
+    document.setType(DocumentTypeEnum.CPF);
+
+    CustomerDto customer1 = new CustomerDto();
+    customer1.setName("Luis Garcia");
+    customer1.setAddress(address);
+    customer1.setDocuments(Lists.newArrayList(document));
+    customer1.setId(1L);
+    customer1.setStatus(StatusEnum.ATIVO);
+
+    CustomerDto customer2 = new CustomerDto();
+    customer2.setName("Luis Carlos");
+    customer2.setPhones(Lists.newArrayList(phone));
+
+    CustomerDto customer3 = new CustomerDto();
+    customer3.setName("Luis Garcia");
+    customer3.setAddress(address);
+    customer3.setDocuments(Lists.newArrayList(document));
+    customer3.setId(1L);
+    customer3.setStatus(StatusEnum.INATIVO);
+
+    CustomerDto customer4 = new CustomerDto();
+    customer4.setId(1L);
+    customer4.setName("Luis Garcia - ALT");
 
     // Success
-    given(customerBusiness.findById(eq(1L))).willReturn(customer);
+    given(customerBusiness.findById(eq(1L))).willReturn(customer1);
+    given(customerBusiness.delete(eq(1L))).willReturn(customer3);
+    given(customerBusiness.create(any())).willReturn(customer1);
+    given(customerBusiness.update(anyLong(), any())).willReturn(customer4);
+    doNothing().when(customerBusiness).updateAddress(anyLong(), any());
+    doNothing().when(customerBusiness).updatePhone(anyLong(), any());
+    doNothing().when(customerBusiness).updateDocument(anyLong(), any());
 
     // List
     given(customerBusiness.findAll()).willReturn(List.of(new CustomerDto(), new CustomerDto()));
+    given(customerBusiness.findAllPaged(anyInt(), anyInt())).willReturn(List.of(new CustomerDto()));
+    given(customerBusiness.findByName(anyString())).willReturn(List.of(customer1, customer2));
+    given(customerBusiness.findByZipcode(anyString())).willReturn(List.of(customer1));
+    given(customerBusiness.findByPhone(anyLong(), anyInt(), anyInt())).willReturn(List.of(customer2));
+    given(customerBusiness.findByDocument(anyString(), any())).willReturn(List.of(customer1));
   }
 
   @Test
@@ -87,13 +128,17 @@ public class CustomerResourcesTest {
         get("/api/customers/")
             .contentType(MediaType.APPLICATION_JSON)
             .accept("application/vnd.customer.app-v1.1+json"))
-        .andExpect(status().isOk())
-        .andExpect(jsonPath("$", hasSize(0)));
+        .andExpect(status().isBadRequest());
   }
 
   @Test
   public void testFindAllPaged() throws Exception {
-    //todo
+    mockMvc.perform(
+        get("/api/customers?pageSize=1&pageNumber=0")
+            .contentType(MediaType.APPLICATION_JSON)
+            .accept("application/vnd.customer.app-v1.1+json"))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$", hasSize(1)));
   }
 
   @Test
@@ -108,63 +153,135 @@ public class CustomerResourcesTest {
 
   @Test
   public void testFindByName() throws Exception {
-    //todo
+    mockMvc.perform(
+        get("/api/customers/name/Luis")
+            .contentType(MediaType.APPLICATION_JSON)
+            .accept("application/vnd.customer.app-v1.1+json"))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$", hasSize(2)))
+        .andExpect(jsonPath("$[0].name", is("Luis Garcia")))
+        .andExpect(jsonPath("$[1].name", is("Luis Carlos")));
   }
 
   @Test
   public void testFindByZipcode() throws Exception {
-    //todo
+    mockMvc.perform(
+        get("/api/customers/address/zipcode/01110222")
+            .contentType(MediaType.APPLICATION_JSON)
+            .accept("application/vnd.customer.app-v1.2+json"))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$", hasSize(1)))
+        .andExpect(jsonPath("$[0].address.state", is("SP")));
   }
 
   @Test
   public void testFindByPhone() throws Exception {
-    //todo
+    mockMvc.perform(
+        get("/api/customers/phone/999998888?countryCode=55&areaCode=15")
+            .contentType(MediaType.APPLICATION_JSON)
+            .accept("application/vnd.customer.app-v1.2+json"))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$", hasSize(1)))
+        .andExpect(jsonPath("$[0].phones[0].type", is(PhoneTypeEnum.CELLPHONE.toString())));
   }
 
   @Test
   public void testFindByDocument() throws Exception {
-    //todo
+    mockMvc.perform(
+        get("/api/customers/document/33344455566?type=CPF")
+            .contentType(MediaType.APPLICATION_JSON)
+            .accept("application/vnd.customer.app-v1.2+json"))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$", hasSize(1)))
+        .andExpect(jsonPath("$[0].documents[0].type", is(DocumentTypeEnum.CPF.toString())));
   }
 
   @Test
   public void testDelete() throws Exception {
-    //todo
+    mockMvc.perform(
+        delete("/api/customers/1")
+            .contentType(MediaType.APPLICATION_JSON)
+            .accept("application/vnd.customer.app-v1.0+json"))
+        .andExpect(status().isOk());
   }
 
   @Test
   public void testCreate() throws Exception {
-//    CustomerDto customer = new CustomerDto();
-//    customer.setName("Luis Garcia");
-//    String payload = this.getCustomerDtoAsJson(customer);
-//
-//    mockMvc.perform(
-//        post("/api/customers/")
-//            .contentType(MediaType.APPLICATION_JSON)
-//            .characterEncoding("UTF-8")
-//            .content(payload))
-//        .andExpect(status().isOk())
-//        .andExpect(jsonPath("$.id", is("10101")))
-//        .andExpect(jsonPath("$.status", is(StatusEnum.ATIVO.toString())));
+    CustomerDto customer = new CustomerDto();
+    customer.setName("Luis Garcia");
+    String payload = this.getCustomerDtoAsJson(customer);
+
+    mockMvc.perform(
+        post("/api/customers/")
+            .contentType(MediaType.APPLICATION_JSON)
+            .characterEncoding("UTF-8")
+            .accept("application/vnd.customer.app-v1.0+json")
+            .content(payload))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$.id", is(1)))
+        .andExpect(jsonPath("$.status", is(StatusEnum.ATIVO.toString())));
   }
 
   @Test
   public void testUpdate() throws Exception {
-    //todo
+    CustomerDto customer = new CustomerDto();
+    customer.setName("Luis Garcia - ALT");
+    String payload = this.getCustomerDtoAsJson(customer);
+
+    mockMvc.perform(
+        put("/api/customers/1")
+            .contentType(MediaType.APPLICATION_JSON)
+            .characterEncoding("UTF-8")
+            .accept("application/vnd.customer.app-v1.0+json")
+            .content(payload))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$.id", is(1)))
+        .andExpect(jsonPath("$.name", is("Luis Garcia - ALT")));
   }
 
   @Test
   public void testUpdateAddress() throws Exception {
-    //todo
+    AddressDto address = new AddressDto();
+    address.setState("RJ");
+    String payload = new ObjectMapper().writeValueAsString(address);
+
+    mockMvc.perform(
+        patch("/api/customers/1/address")
+            .contentType(MediaType.APPLICATION_JSON)
+            .characterEncoding("UTF-8")
+            .accept("application/vnd.customer.app-v1.2+json")
+            .content(payload))
+        .andExpect(status().isOk());
   }
 
   @Test
   public void testUpdatePhone() throws Exception {
-    //todo
+    PhoneDto phone = new PhoneDto();
+    phone.setType(PhoneTypeEnum.CELLPHONE);
+    String payload = new ObjectMapper().writeValueAsString(phone);
+
+    mockMvc.perform(
+        patch("/api/customers/1/phone")
+            .contentType(MediaType.APPLICATION_JSON)
+            .characterEncoding("UTF-8")
+            .accept("application/vnd.customer.app-v1.2+json")
+            .content(payload))
+        .andExpect(status().isOk());
   }
 
   @Test
   public void testUpdateDocument() throws Exception {
-    //todo
+    DocumentDto document = new DocumentDto();
+    document.setType(DocumentTypeEnum.CPF);
+    String payload = new ObjectMapper().writeValueAsString(document);
+
+    mockMvc.perform(
+        patch("/api/customers/1/document")
+            .contentType(MediaType.APPLICATION_JSON)
+            .characterEncoding("UTF-8")
+            .accept("application/vnd.customer.app-v1.2+json")
+            .content(payload))
+        .andExpect(status().isOk());
   }
 
   private String getCustomerDtoAsJson(CustomerDto dto) throws JsonProcessingException {

@@ -16,9 +16,11 @@ import com.builders.customer.resources.dtos.DocumentDto;
 import com.builders.customer.resources.dtos.PhoneDto;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -69,10 +71,11 @@ public class CustomerBusinessImpl implements CustomerBusiness {
   }
 
   @Override
-  public void delete(Long id) {
+  public CustomerDto delete(Long id) {
     Customer customer = this.findByIdOrThrowException(id);
     customer.setStatus(StatusEnum.INATIVO);
     this.customerRepository.save(customer);
+    return this.entityToDto(customer);
   }
 
   @Override
@@ -132,7 +135,12 @@ public class CustomerBusinessImpl implements CustomerBusiness {
       }
     }
     if (isNew) {
-      phones.add(this.modelMapper.map(phone, Phone.class));
+      Phone p = this.modelMapper.map(phone, Phone.class);
+      if (phones != null) {
+        phones.add(p);
+      } else {
+        customerFound.setPhones(List.of(p));
+      }
     }
 
     this.customerRepository.save(customerFound);
@@ -152,20 +160,44 @@ public class CustomerBusinessImpl implements CustomerBusiness {
       }
     }
     if (isNew) {
-      documents.add(this.modelMapper.map(document, Document.class));
+      Document d = this.modelMapper.map(document, Document.class);
+      if (documents != null) {
+        documents.add(d);
+      } else {
+        customerFound.setDocuments(List.of(d));
+      }
     }
 
     this.customerRepository.save(customerFound);
   }
 
   @Override
-  public List<CustomerDto> findAllPaged(Pageable pageable) {
+  public List<CustomerDto> findAllPaged(int pageSize, int pageNumber) {
+    Pageable pageable = PageRequest.of(pageNumber, pageSize);
     List<Customer> customers = this.customerRepository.findAllByStatus(StatusEnum.ATIVO, pageable);
     return this.parseListToDtoOrThrowException(customers);
   }
 
   private Customer dtoToEntity(CustomerDto dto) {
-    return this.modelMapper.map(dto, Customer.class);
+    Customer customer = this.modelMapper.map(dto, Customer.class);
+    if (dto.getAddress() != null) {
+      customer.setAddress(this.modelMapper.map(dto.getAddress(), Address.class));
+    }
+    if (dto.getPhones() != null && dto.getPhones().size() > 0) {
+      List<Phone> phones = new ArrayList<>();
+      for(PhoneDto phoneDto : dto.getPhones()){
+        phones.add(this.modelMapper.map(phoneDto, Phone.class));
+      }
+      customer.setPhones(phones);
+    }
+    if (dto.getDocuments() != null && dto.getDocuments().size() > 0) {
+      List<Document> documents = new ArrayList<>();
+      for(DocumentDto documentDto : dto.getDocuments()){
+        documents.add(this.modelMapper.map(documentDto, Document.class));
+      }
+      customer.setDocuments(documents);
+    }
+    return customer;
   }
 
   private CustomerDto entityToDto(Customer entity) {

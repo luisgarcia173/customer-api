@@ -33,7 +33,7 @@ Data|Fase|Descrição
 02/04/2021|Configuração|Criação das classes e métodos de teste (TDD) baseado na especificação da API
 02/04/2021|Desenvolvimento|Criação das Entidades e Enums conforme necessidade dos testes unitários
 03/04/2021|Desenvolvimento|Criação dos DTOs para blindar o modelo do banco de dados 
-03/04/2021|Desenvolvimento|Criação das Rotas e Endpoints para validar das chamadas e HTTPCodes 
+03/04/2021|Desenvolvimento|Criação das Rotas e Endpoints para validação das chamadas e HTTPCodes 
 03/04/2021|Desenvolvimento|Escrever documentação swagger para as rotas
 03/04/2021|Configuração|Abstração de versionamento de APIs
 04/04/2021|Configuração|Alteração na biblioteca de Documentação Api de OpenApi para Swagger3 devido a limitação no versionamento
@@ -48,17 +48,18 @@ Data|Fase|Descrição
 04/04/2021|Desenvolvimento|Criação das Exceções customizadas
 05/04/2021|Configuração|Configuração do SpringDataJpa para mapear as entidades banco e validar persistência
 05/04/2021|Desenvolvimento|Configuração do Handler de erros
-05/04/2021|Desenvolvimento|Retomando os testes unitários por camadas (Resource/Business/Repository)
 05/04/2021|Configuração|Criação do SecurityConfig para liberar as rotas nos testes
-05/04/2021|Configuração|Validação do Jacoco com as métricas de qualidade
-Pendente|Teste Integração|Criação dos payloads no postman para teste de integração
+06/04/2021|Desenvolvimento|Retomando os testes unitários por camadas (Resource/Business/Repository)
+06/04/2021|Configuração|Validação do Jacoco com as métricas de qualidade
+06/04/2021|Teste Integração|Criação dos payloads no postman para teste de integração
+07/04/2021|Documentação|Atualização README
 
 # Fora Escopo (Melhoria)
 Data|Fase|Descrição
 ---|---|---
 Pendente|Melhoria|Empacotamento aplicação utilizando Docker
 Pendente|Melhoria|Banco de dados e demais itens de infra tbm containerizados
-Pendente|Melhoria|Utilizar orquetrador Docker Compose
+Pendente|Melhoria|Utilizar orquestrador Docker Compose ou Kubernetes
 Pendente|Melhoria|Subir ambiente funcional em Cloud (gratuíta)
 Pendente|Melhoria|Criação camada de log transacional (auditoria)
 Pendente|Melhoria|Criação camada de log sistema (erros)

@@ -55,7 +55,8 @@ jacocoTestCoverageVerification {
 			excludes = [
 				'com.builders.customer.resources.handler.*',
 				'com.builders.customer.resources.dtos.*',
-				'com.builders.customer.repositories.entities.*'
+				'com.builders.customer.repositories.entities.*',
+				'com.builders.customer.CustomerApiApplication'
 			]
 			limit {
 				counter = 'INSTRUCTION'
@@ -78,7 +79,8 @@ jacocoTestReport {
 			fileTree(dir: it, exclude: [
 				'com/builders/customer/resources/handler/**',
 				'com/builders/customer/resources/dtos/**',
-				'com/builders/customer/repositories/entities/**'
+				'com/builders/customer/repositories/entities/**',
+				'com/builders/customer/CustomerApiApplication'
 			])
 		}))
 	}

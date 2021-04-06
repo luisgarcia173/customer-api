@@ -17,11 +17,11 @@ public interface CustomerBusiness {
   List<CustomerDto> findByZipcode(String zipcode);
   List<CustomerDto> findByPhone(long number, int countryCode, int areaCode);
   List<CustomerDto> findByDocument(String number, DocumentTypeEnum type);
-  void delete(Long id);
+  CustomerDto delete(Long id);
   CustomerDto create(CustomerDto customer);
   CustomerDto update(Long id, CustomerDto customer);
   void updateAddress(Long id, AddressDto address);
   void updatePhone(Long id, PhoneDto phone);
   void updateDocument(Long id, DocumentDto document);
-  List<CustomerDto> findAllPaged(Pageable pageable);
+  List<CustomerDto> findAllPaged(int pageSize, int pageNumber);
 }
