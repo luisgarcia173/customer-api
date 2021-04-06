@@ -49,8 +49,9 @@ Data|Fase|Descrição
 05/04/2021|Configuração|Configuração do SpringDataJpa para mapear as entidades banco e validar persistência
 05/04/2021|Desenvolvimento|Configuração do Handler de erros
 05/04/2021|Desenvolvimento|Retomando os testes unitários por camadas (Resource/Business/Repository)
+05/04/2021|Configuração|Criação do SecurityConfig para liberar as rotas nos testes
+05/04/2021|Configuração|Validação do Jacoco com as métricas de qualidade
 Pendente|Teste Integração|Criação dos payloads no postman para teste de integração
-Pendente|Configuração|Validação do Jacoco com as métricas de qualidade
 
 # Fora Escopo (Melhoria)
 Data|Fase|Descrição

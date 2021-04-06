@@ -53,13 +53,14 @@ jacocoTestCoverageVerification {
 		rule {
 			element = 'CLASS'
 			excludes = [
-					'*Test',
-					'com.builders.customer.config.*'
+				'com.builders.customer.resources.handler.*',
+				'com.builders.customer.resources.dtos.*',
+				'com.builders.customer.repositories.entities.*'
 			]
 			limit {
-				counter = 'BRANCH'
+				counter = 'INSTRUCTION'
 				value = 'COVEREDRATIO'
-				minimum = 0.8
+				minimum = 0.9
 			}
 		}
 	}
@@ -67,14 +68,17 @@ jacocoTestCoverageVerification {
 
 jacocoTestReport {
 	reports {
-		xml.enabled true
+		xml.enabled false
 		csv.enabled false
+		html.destination file("${buildDir}/jacocoHtml")
 	}
 	dependsOn test
 	afterEvaluate {
 		classDirectories.setFrom(files(classDirectories.files.collect {
 			fileTree(dir: it, exclude: [
-				'**/config/**/*'
+				'com/builders/customer/resources/handler/**',
+				'com/builders/customer/resources/dtos/**',
+				'com/builders/customer/repositories/entities/**'
 			])
 		}))
 	}

@@ -1,7 +1,6 @@
 package com.builders.customer.repositories.entities;
 
 import com.builders.customer.repositories.enums.StatusEnum;
-import com.builders.customer.resources.dtos.CustomerDto;
 import lombok.Data;
 
 import javax.persistence.*;

@@ -44,7 +44,7 @@ public class CustomerBusinessImpl implements CustomerBusiness {
 
   @Override
   public List<CustomerDto> findByName(String name) {
-    List<Customer> customers = this.customerRepository.findByNameStartsWith(name);
+    List<Customer> customers = this.customerRepository.findAllByNameStartsWith(name);
     return this.parseListToDtoOrThrowException(customers);
   }
 
@@ -55,7 +55,7 @@ public class CustomerBusinessImpl implements CustomerBusiness {
   }
 
   @Override
-  public List<CustomerDto> findByPhone(String number, String countryCode, String areaCode) {
+  public List<CustomerDto> findByPhone(long number, int countryCode, int areaCode) {
     List<Customer> customers = this.customerRepository
         .findAllByPhonesCountryCodeAndPhonesAreaCodeAndPhonesNumber(countryCode, areaCode, number);
     return this.parseListToDtoOrThrowException(customers);

@@ -109,9 +109,9 @@ public class CustomerResources {
       @ApiResponse(responseCode = "404", description = "Nenhum cliente encontrado", content = @Content) })
   @GetMapping(value = "/phone/{number}", produces = "application/vnd.customer.app-v1.2+json")
   public List<CustomerDto> findByPhone(
-      @Parameter(description = "Número do telefone", required = true) @PathVariable String number,
-      @Parameter(description = "DDI", required = false) @RequestParam String countryCode,
-      @Parameter(description = "DDD", required = false) @RequestParam String areaCode) {
+      @Parameter(description = "Número do telefone", required = true) @PathVariable long number,
+      @Parameter(description = "DDI", required = false) @RequestParam int countryCode,
+      @Parameter(description = "DDD", required = false) @RequestParam int areaCode) {
     return this.customerBusiness.findByPhone(number, countryCode, areaCode);
   }
 

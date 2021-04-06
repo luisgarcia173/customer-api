@@ -15,7 +15,7 @@ public interface CustomerBusiness {
   CustomerDto findById(long id);
   List<CustomerDto> findByName(String name);
   List<CustomerDto> findByZipcode(String zipcode);
-  List<CustomerDto> findByPhone(String number, String countryCode, String areaCode);
+  List<CustomerDto> findByPhone(long number, int countryCode, int areaCode);
   List<CustomerDto> findByDocument(String number, DocumentTypeEnum type);
   void delete(Long id);
   CustomerDto create(CustomerDto customer);
