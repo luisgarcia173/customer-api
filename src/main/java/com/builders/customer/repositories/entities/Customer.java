@@ -16,11 +16,11 @@ public @Data class Customer implements Serializable {
 
   private String name;
   private int age;
-  @OneToMany(cascade=CascadeType.PERSIST)
+  @OneToMany(cascade = CascadeType.ALL)
   private List<Document> documents;
-  @OneToOne(cascade=CascadeType.PERSIST)
+  @OneToOne(cascade = CascadeType.PERSIST, orphanRemoval=true)
   private Address address;
-  @OneToMany(cascade=CascadeType.PERSIST)
+  @OneToMany(cascade = CascadeType.ALL)
   private List<Phone> phones;
   private StatusEnum status;
 

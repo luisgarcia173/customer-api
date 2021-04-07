@@ -1,11 +1,10 @@
 package com.builders.customer.repositories.entities;
 
 import com.builders.customer.repositories.enums.PhoneTypeEnum;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity

@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -98,16 +99,34 @@ public class CustomerBusinessImpl implements CustomerBusiness {
   }
 
   @Override
+  @Transactional
   public CustomerDto update(Long id, CustomerDto customer) {
-    // Customer customerFound = this.findByIdOrThrowException(id);
-    this.findByIdOrThrowException(id);
+    Customer customerFound = this.findByIdOrThrowException(id);
 
-    // TODO popular manualmente customerFound (de x para)
-    customer.setId(id);
-    Customer customertoPersist = this.dtoToEntity(customer);
+    customerFound.setName(customer.getName());
+    customerFound.setAge(customer.getAge());
 
-    this.customerRepository.save(customertoPersist);
-    return this.entityToDto(customertoPersist);
+    Address address = this.modelMapper.map(customer.getAddress(), Address.class);
+    customerFound.setAddress(address);
+
+    List<Phone> phones = new ArrayList<>();
+    if (customer.getPhones() != null && customer.getPhones().size() > 0) {
+      for (PhoneDto phone: customer.getPhones()) {
+        phones.add(this.modelMapper.map(phone, Phone.class));
+      }
+    }
+    customerFound.setPhones(phones);
+
+    List<Document> documents = new ArrayList<>();
+    if (customer.getDocuments() != null && customer.getDocuments().size() > 0) {
+      for (DocumentDto document: customer.getDocuments()) {
+        documents.add(this.modelMapper.map(document, Document.class));
+      }
+    }
+    customerFound.setDocuments(documents);
+
+    this.customerRepository.save(customerFound);
+    return this.entityToDto(customerFound);
   }
 
   @Override
