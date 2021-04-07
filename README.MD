@@ -51,8 +51,8 @@ Data|Fase|Descrição
 05/04/2021|Configuração|Criação do SecurityConfig para liberar as rotas nos testes
 06/04/2021|Desenvolvimento|Retomando os testes unitários por camadas (Resource/Business/Repository)
 06/04/2021|Configuração|Validação do Jacoco com as métricas de qualidade
-06/04/2021|Teste Integração|Criação dos payloads no postman para teste de integração
-07/04/2021|Documentação|Atualização README
+07/04/2021|Teste Integração|Criação dos payloads no postman para teste de integração
+Pendente|Documentação|Atualização README
 
 # Fora Escopo (Melhoria)
 Data|Fase|Descrição

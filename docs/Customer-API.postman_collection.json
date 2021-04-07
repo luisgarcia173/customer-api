@@ -1,0 +1,474 @@
+{
+	"info": {
+		"_postman_id": "6d928113-c239-427e-a48b-cf8b8291497a",
+		"name": "Customer-API",
+		"description": "Api com serviços de cliente versionado.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "v1.0",
+			"item": [
+				{
+					"name": "findAll",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "{{v1.0}}",
+								"description": "Versão da API",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{base_url}}/api/customers/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"customers",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findbyId",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "{{v1.0}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{base_url}}/api/customers/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"customers",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "{{v1.0}}"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"address\": {\r\n    \"city\": \"Sorocaba\",\r\n    \"number\": \"10\",\r\n    \"state\": \"SP\",\r\n    \"streetName\": \"Rua Principal - ALT\",\r\n    \"type\": \"APARTMENT\",\r\n    \"zipcode\": \"01111222\"\r\n  },\r\n  \"age\": 34,\r\n  \"documents\": [\r\n    {\r\n      \"number\": \"11122233344\",\r\n      \"type\": \"CPF\"\r\n    }\r\n  ],\r\n  \"name\": \"Luis Garcia - ALT\",\r\n  \"phones\": [\r\n    {\r\n      \"areaCode\": 15,\r\n      \"countryCode\": 55,\r\n      \"number\": 999887766,\r\n      \"type\": \"CELLPHONE\"\r\n    }\r\n  ]\r\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/customers/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"customers",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "{{v1.0}}"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"age\": 34,\r\n  \"name\": \"Luis Garcia\"\r\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/customers/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"customers",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "{{v1.0}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{base_url}}/api/customers/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"customers",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "v1.1",
+			"item": [
+				{
+					"name": "findAllPaged",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"description": "Versão da API",
+								"key": "Accept",
+								"type": "text",
+								"value": "{{v1.1}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{base_url}}/api/customers?pageSize=1&pageNumber=0",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"customers"
+							],
+							"query": [
+								{
+									"key": "pageSize",
+									"value": "1"
+								},
+								{
+									"key": "pageNumber",
+									"value": "0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findByName",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"description": "Versão da API",
+								"key": "Accept",
+								"type": "text",
+								"value": "{{v1.1}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{base_url}}/api/customers/name/Luis",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"customers",
+								"name",
+								"Luis"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findByDocument",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"description": "Versão da API",
+								"key": "Accept",
+								"type": "text",
+								"value": "{{v1.1}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{base_url}}/api/customers/document/11122233344?type=CPF",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"customers",
+								"document",
+								"11122233344"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "CPF"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateAddress",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "{{v1.1}}"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"city\": \"Sorocaba\",\r\n    \"number\": \"10\",\r\n    \"state\": \"SP\",\r\n    \"streetName\": \"Rua Principal - ALT - PATCH\",\r\n    \"type\": \"APARTMENT\",\r\n    \"zipcode\": \"01111222\",\r\n\t\"complement\": \"Bloco A\"\r\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/customers/1/address",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"customers",
+								"1",
+								"address"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updatePhone",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "{{v1.1}}"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"countryCode\": 55,\r\n    \"areaCode\": 15,\r\n    \"number\": 33334444,\r\n    \"type\": \"RESIDENCE\"\r\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/customers/1/phone",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"customers",
+								"1",
+								"phone"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateDocument",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "{{v1.1}}"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"number\": \"102003004\",\r\n    \"type\": \"RG\"\r\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/customers/1/document",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"customers",
+								"1",
+								"document"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "v1.2",
+			"item": [
+				{
+					"name": "findByPhone",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"description": "Versão da API",
+								"key": "Accept",
+								"type": "text",
+								"value": "{{v1.2}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{base_url}}/api/customers/phone/999887766?countryCode=55&areaCode=15",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"customers",
+								"phone",
+								"999887766"
+							],
+							"query": [
+								{
+									"key": "countryCode",
+									"value": "55"
+								},
+								{
+									"key": "areaCode",
+									"value": "15"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findByZipcode",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"description": "Versão da API",
+								"key": "Accept",
+								"type": "text",
+								"value": "{{v1.2}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{base_url}}/api/customers/address/zipcode/01111222",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"customers",
+								"address",
+								"zipcode",
+								"01111222"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

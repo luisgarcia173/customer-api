@@ -14,6 +14,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -198,9 +199,10 @@ public class CustomerResources {
       "application/vnd.customer.app-v1.1+json",
       "application/vnd.customer.app-v1.2+json"
   })
-  public void updateAddress(@Parameter(description = "Id do cliente", required = true) @PathVariable("id") final Long id,
-                            @Parameter(description = "Novo endereço") @RequestBody final AddressDto address) {
+  public ResponseEntity<?> updateAddress(@Parameter(description = "Id do cliente", required = true) @PathVariable("id") final Long id,
+                                         @Parameter(description = "Novo endereço") @RequestBody final AddressDto address) {
     this.customerBusiness.updateAddress(id, address);
+    return ResponseEntity.ok("Endereço atualizado");
   }
 
   @Operation(summary = "Atualizar telefone do cliente")
